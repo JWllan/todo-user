@@ -13,8 +13,14 @@ module.exports = {
         return res.json(element);
     },
     async post(req, res) {
-        const element = await Table.create(req.body);
-        return res.json(element);
+        const existe = await Table.findOne({"nickname": req.body.nickname});
+        if (existe == null) {
+            const element = await Table.create(req.body);
+            return res.json(element);
+        }
+        else {
+            return res.json(null);
+        }
     },
     async put(req, res) {
         const element = await Table.findByIdAndUpdate(req.params.id, req.body, {new: true});
