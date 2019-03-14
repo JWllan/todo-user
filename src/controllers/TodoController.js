@@ -5,7 +5,7 @@ const Table = mongoose.model('Todo');
 module.exports = {
     async list(req, res) {
         const { page = 0, userId } = req.query;
-        const list = (page != 0) ? await Table.paginate({ userId }, { page, limit: 10 }) : await Table.find();
+        const list = (page != 0) ? await Table.paginate({ userId }, { page, limit: 10 }) : await Table.find({ userId });
         return res.json(list);
     },
     async get(req, res) {
